@@ -10,7 +10,8 @@ function PasswordResetFailed() {
   return <p>There was a password reset error, please try again later.</p>;
 }
 
-export default async function PasswordRecovery({ searchParams }: { searchParams: { hash?: string } }) {
+export default async function PasswordRecovery(props: { searchParams: Promise<{ hash?: string }> }) {
+  const searchParams = await props.searchParams;
   const hash = searchParams.hash;
 
   if (!hash) {

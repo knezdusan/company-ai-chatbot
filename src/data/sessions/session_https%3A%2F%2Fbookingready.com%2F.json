@@ -1,0 +1,65 @@
+{
+  "cookies": [
+    {
+      "name": "PHPSESSID",
+      "value": "g2v89dcu4eb6nd959ke9133are",
+      "domain": "bookingready.com",
+      "path": "/",
+      "expires": -1,
+      "size": 35,
+      "httpOnly": false,
+      "secure": true,
+      "session": true,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    },
+    {
+      "name": "_ga_BB06X7SVZN",
+      "value": "GS1.1.1730823098.1.0.1730823098.0.0.0",
+      "domain": ".bookingready.com",
+      "path": "/",
+      "expires": 1765383098.337274,
+      "size": 51,
+      "httpOnly": false,
+      "secure": true,
+      "session": false,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.909872056.1730823098",
+      "domain": ".bookingready.com",
+      "path": "/",
+      "expires": 1765383098.337538,
+      "size": 29,
+      "httpOnly": false,
+      "secure": true,
+      "session": false,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    },
+    {
+      "name": "_fbp",
+      "value": "fb.1.1730823098414.973279304899281751",
+      "domain": ".bookingready.com",
+      "path": "/",
+      "expires": 1738942894,
+      "size": 41,
+      "httpOnly": false,
+      "secure": true,
+      "session": false,
+      "sameSite": "Lax",
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    }
+  ],
+  "localStorage": {
+    "lastExternalReferrer": "empty",
+    "lastExternalReferrerTime": "1731166894493"
+  }
+}

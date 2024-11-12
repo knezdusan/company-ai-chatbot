@@ -1,0 +1,49 @@
+{
+  "cookies": [
+    {
+      "name": "lfan",
+      "value": "{%22network_id%22:%22%22%2C%22details%22:{}%2C%22lav%22:1731093776%2C%22lv%22:1731093776}",
+      "domain": "www.leafhome.com",
+      "path": "/",
+      "expires": 1741461776,
+      "size": 93,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    },
+    {
+      "name": "lfac",
+      "value": "{%22network%22:%22%22%2C%22feeditemid%22:%22%22%2C%22device%22:%22%22%2C%22creative%22:%22%22%2C%22keyword%22:%22%22%2C%22adposition%22:%22%22%2C%22loc_physical_ms%22:%22%22%2C%22campaignid%22:%22%22%2C%22adgroupid%22:%22%22%2C%22utm_source%22:%22%22%2C%22utm_medium%22:%22%22%2C%22utm_campaign%22:%22%22%2C%22utm_content%22:%22%22%2C%22utm_term%22:%22%22%2C%22mkt_tok%22:false%2C%22landing_page%22:%22/%22%2C%22lf_dc%22:%22%22%2C%22gclid%22:%22%22%2C%22vs%22:1731093776%2C%22guid%22:%220ebd0e99-1c1f-415d-b43e-a5b6f331624b%22%2C%22lv%22:1731093776}",
+      "domain": "www.leafhome.com",
+      "path": "/",
+      "expires": 1731698576,
+      "size": 553,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    },
+    {
+      "name": "lfcc",
+      "value": "false",
+      "domain": "www.leafhome.com",
+      "path": "/",
+      "expires": 1762629776,
+      "size": 9,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    }
+  ],
+  "localStorage": {
+    "NRBA_SESSION": "{\"value\":\"d2bc471c628be343\",\"inactiveAt\":1731095575246,\"expiresAt\":1731108173742,\"updatedAt\":1731093775246,\"sessionReplayMode\":0,\"sessionReplaySentFirstChunk\":false,\"sessionTraceMode\":0,\"traceHarvestStarted\":false,\"serverTimeDiff\":-729,\"custom\":{}}"
+  }
+}

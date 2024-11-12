@@ -1,7 +1,7 @@
+import { useActionState } from "react";
 import { Input } from "@/components/ui/input";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { HelpCircle } from "lucide-react";
-import { useFormState } from "react-dom";
 import { signup } from "../actions";
 import ButtonSubmit from "@/components/custom/ButtonSubmit";
 
@@ -10,7 +10,7 @@ type FormSignUpProps = {
 };
 
 export default function FormSignUp({ openAuthVerifyDialog }: FormSignUpProps) {
-  const [state, action] = useFormState(signup, null);
+  const [state, action] = useActionState(signup, null);
 
   const signUpSuccess =
     state &&

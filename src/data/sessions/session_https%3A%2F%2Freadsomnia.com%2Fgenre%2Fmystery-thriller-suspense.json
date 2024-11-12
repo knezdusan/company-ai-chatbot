@@ -1,0 +1,33 @@
+{
+  "cookies": [
+    {
+      "name": "_ga",
+      "value": "GA1.1.82471397.1731171117",
+      "domain": ".readsomnia.com",
+      "path": "/",
+      "expires": 1765731116.826742,
+      "size": 28,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    },
+    {
+      "name": "_ga_2G1JJ07L6G",
+      "value": "GS1.1.1731171116.1.0.1731171116.0.0.0",
+      "domain": ".readsomnia.com",
+      "path": "/",
+      "expires": 1765731116.826594,
+      "size": 51,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    }
+  ],
+  "localStorage": {}
+}

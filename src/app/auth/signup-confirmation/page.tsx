@@ -10,7 +10,8 @@ function SignupVerificationLinkNotValid() {
   return <p>SignUp confirmation Link is not valid. Please try again</p>;
 }
 
-export default async function SignUpConfirmation({ searchParams }: { searchParams: { hash: string } }) {
+export default async function SignUpConfirmation(props: { searchParams: Promise<{ hash: string }> }) {
+  const searchParams = await props.searchParams;
   if (!searchParams.hash) {
     return <SignupVerificationLinkNotValid />;
   }

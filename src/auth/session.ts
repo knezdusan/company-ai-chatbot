@@ -21,7 +21,7 @@ const authSessionCookie = {
 export async function createAuthSession(payload: TAuth) {
   try {
     const authSessionToken = await createJwtToken(payload);
-    cookies().set(authSessionCookie.name, authSessionToken, authSessionCookie.options);
+    (await cookies()).set(authSessionCookie.name, authSessionToken, authSessionCookie.options);
     return true;
   } catch (error) {
     if (error instanceof Error) {
@@ -34,7 +34,7 @@ export async function createAuthSession(payload: TAuth) {
 };
 
 export async function verifyAuthSession() {
-  const authSessionCookieToken = cookies().get(authSessionCookie.name)?.value;
+  const authSessionCookieToken = (await cookies()).get(authSessionCookie.name)?.value;
   if (!authSessionCookieToken) {
     return null;
   }
@@ -48,7 +48,7 @@ export async function verifyAuthSession() {
 
 export async function deleteAuthSession() {
   try {
-    cookies().delete(authSessionCookie.name);
+    (await cookies()).delete(authSessionCookie.name);
     return true;
   } catch (error) {
     if (error instanceof Error) {

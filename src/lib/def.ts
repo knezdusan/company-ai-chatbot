@@ -1,5 +1,6 @@
 import { z } from "zod";
 import * as CompanyEmailValidator from 'company-email-validator';
+import { Browser, Page } from "puppeteer";
 
 // Database Schema and Types ----------------------------------------------
 
@@ -72,4 +73,61 @@ export type EmailData = {
 
 export type EmailResponse = {
   message: string;
+}
+
+
+// Crawler and Scrp Indexing Types -----------------------------------------------------
+
+export type TCrawler = {
+  success: boolean;
+  message: string;
+}
+
+export type TScrpConfig = {
+  browser: Browser;
+  page: Page;
+}
+
+export type TScrpPageData = {
+  url: string;
+  title: string;
+  description?: string;
+  image?: string;
+  content: string;
+  links: string[];
+  proxy?: string;
+}
+
+export type TScrpPageResponse = TScrpConfig & TScrpPageData;
+
+export type TCrawlResults = {
+  url: string;
+  depth: number;
+  success: boolean;
+  links: string[];
+}
+
+export type TCrawlQueue = {
+  url: string;
+  depth: number;
+}
+
+
+// Proxy Types -----------------------------------------------------
+
+export type ProxyConfig = {
+  protocol?: 'http' | 'https' | 'socks4' | 'socks5';
+  proxy_address: string;
+  port: number;
+  username?: string;
+  password?: string;
+  valid?: boolean;
+  geolocation?: string;
+}
+
+export type ProxyData = {
+  origin?: string;
+  ip?: string;
+  query?: string;
+  status?: string;
 }

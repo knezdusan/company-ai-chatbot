@@ -1,6 +1,14 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
-    "signin"
+    "ANTIPATTERNS",
+    "domcontentloaded",
+    "HTPS",
+    "networkidle",
+    "pageerror",
+    "requestfailed",
+    "scrp",
+    "signin",
+    "webshare"
   ]
 }

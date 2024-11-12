@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="page-wrapper min-h-screen max-w-7xl mx-auto p-2 border-2">
+        <div className="page-wrapper min-h-svh max-w-7xl mx-auto border-x-2 border-slate-300">
           <Navbar />
           {children}
         </div>

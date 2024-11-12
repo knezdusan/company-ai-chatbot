@@ -1,12 +1,12 @@
 "use client";
 
+import { useActionState } from "react";
 import ButtonSubmit from "@/components/custom/ButtonSubmit";
 import { Input } from "@/components/ui/input";
-import { useFormState } from "react-dom";
 import { reset } from "../actions";
 
 export default function FormPasswordReset({ email }: { email: string }) {
-  const [state, action] = useFormState(reset, { errors: { password: [email] } });
+  const [state, action] = useActionState(reset, { errors: { password: [email] } });
 
   return (
     <form className="grid gap-4 py-4" action={action}>

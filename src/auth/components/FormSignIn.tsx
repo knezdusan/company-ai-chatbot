@@ -1,10 +1,10 @@
+import { useActionState } from "react";
 import { Input } from "@/components/ui/input";
-import { useFormState } from "react-dom";
 import { signin } from "../actions";
 import ButtonSubmit from "@/components/custom/ButtonSubmit";
 
 export default function FormSignIn() {
-  const [state, action] = useFormState(signin, null);
+  const [state, action] = useActionState(signin, null);
 
   return (
     <form className="grid gap-4 py-4" action={action}>

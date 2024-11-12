@@ -1,11 +1,11 @@
+import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useFormState } from "react-dom";
 import { recovery } from "../actions";
 import ButtonSubmit from "@/components/custom/ButtonSubmit";
 
 export default function AuthRecovery() {
-  const [state, action] = useFormState(recovery, null);
+  const [state, action] = useActionState(recovery, null);
 
   const signUpSuccess =
     state &&
