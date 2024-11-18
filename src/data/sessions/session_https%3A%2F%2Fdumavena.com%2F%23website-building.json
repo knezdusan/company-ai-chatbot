@@ -1,0 +1,35 @@
+{
+  "cookies": [
+    {
+      "name": "laravel_session",
+      "value": "eyJpdiI6IkxjWENDdjcyMnlMMmZzckNmdjJ4VGc9PSIsInZhbHVlIjoiQU4zNzQ4QnMrVUd4UU12d2t3RExPOEpERjlTVDZJdzRKL20yK21YZTlsWElDR2pLdXVzWFRrTmtkcUVsYUZRZHBvWjVEdTN1V2htdHlMRXpYTmVGSkM1K0NFSWw4MG1FNjhQUUcxWFpzTmdNWjZ0VkZBeHRaVEh6dEtoSEVLa1UiLCJtYWMiOiI5NzQzOGIyNzRjMGU3NTMxMmU2Y2E5NjczMTEyNTY0NDQzNDNjYWI1OWRjMmE1OGRjYmFmNzg1ODZmMzk2MTljIiwidGFnIjoiIn0%3D",
+      "domain": "dumavena.com",
+      "path": "/",
+      "expires": 1731696321.02661,
+      "size": 357,
+      "httpOnly": true,
+      "secure": false,
+      "session": false,
+      "sameSite": "Lax",
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6IlpGSStrL0djNUpXTUJyT2t1Vnp4OFE9PSIsInZhbHVlIjoiZW03MFhPY0VXbmJEc2Z4SitPRksvc3B3dnpvWVB1dFRpQU05K3JsMDc2bVR0K0RYUVJybTlsb2Y5cWdZS1M1OTdGaXRlN0x3RnVTNUxVRTV1UnVsUS85V3d6ZklFUDBOQkZvZENENUhoa1lrT2hSQXJMMFpxTFdhREl0ZkZzZDQiLCJtYWMiOiJlM2RlMDY1N2E2ZmY0NjFjMGIzYzJmNDA1ODFmNzNlZDU4NTA2ODY0MDFhZTE3NGZkNjBkMzg3NzdlOTA0MDc4IiwidGFnIjoiIn0%3D",
+      "domain": "dumavena.com",
+      "path": "/",
+      "expires": 1731696321.026188,
+      "size": 352,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "sameSite": "Lax",
+      "priority": "Medium",
+      "sameParty": false,
+      "sourceScheme": "Secure"
+    }
+  ],
+  "localStorage": {}
+}

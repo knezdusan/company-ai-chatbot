@@ -13,22 +13,26 @@
 import { TCrawlQueue, TCrawlResults, TScrpPageResponse } from "@/lib/def";
 import { scrpPage } from "@/lib/scrp/scrpPage";
 import { isValidUrl, withRetry } from "@/lib/utils";
+import { pages } from "next/dist/build/templates/app-page";
+import * as fs from 'fs';
 
 const MAX_CRAWLER_DEPTH = 2;  // How many levels deep should the crawler got going backwards from the root url to zero
 const CONCURRENCY_LIMIT = 5; // How many pages can be processed concurrently at a time (to reduce load on the server)
+const PAGES_LIMIT = 1; // How many pages can be indexed in total
 
 export async function crawler(prevState: unknown, formData: FormData) {
 
+  let pagesScraped = 0;
+
   // Get the root url from the client side useActionState hook
-  let rootUrl = formData.get("rootUrl") as string;
+  const rootUrl = formData.get("rootUrl") as string;
 
   // test url
-  rootUrl = "https://books.toscrape.com/";
-  // rootUrl = "https://bookingready.com/";
-  // rootUrl = "https://readsomnia.com/";
-  rootUrl = "https://relativityspace.com/";
-  rootUrl = "https://www.fictiv.com/";
-
+  // rootUrl = "https://books.toscrape.com/";
+  // // rootUrl = "https://bookingready.com/";
+  // // rootUrl = "https://readsomnia.com/";
+  // rootUrl = "https://relativityspace.com/";
+  // rootUrl = "https://www.fictiv.com/";
 
 
   // Validate the url
@@ -60,9 +64,11 @@ export async function crawler(prevState: unknown, formData: FormData) {
     return { success: false, message: 'Crawler error, please try again or contact support' };
   }
 
+
   async function crawl(url: string, depth: number): Promise<void> {
+
     // Ensure URL has not been visited and is within depth limit (depth is calculated from the root url to zero)
-    if (visitedUrls.has(url) || depth <= 0) return;
+    if (visitedUrls.has(url) || depth <= 0 || pagesScraped >= PAGES_LIMIT) return;
     visitedUrls.add(url);
 
     console.log(`------> Crawling ${url} at depth ${depth}`);
@@ -82,7 +88,18 @@ export async function crawler(prevState: unknown, formData: FormData) {
       // const { page, browser, title, content, links } = scrpPageResult;
       const { links } = scrpPageResult;
 
+      // Increment the counter when a page is scraped
+      pagesScraped++;
+
       console.log(`------> Successfully scraped ${url}. Found ${links.length} links.`);
+
+      // save the scrpPageResult.content to scrp.txt file
+      const { content } = scrpPageResult;
+      fs.writeFileSync('scrp.txt', content);
+
+
+      console.log('scrpPageResult: ', scrpPageResult);
+      return;
 
       // Sanitize the content and store it in the database
       // await sanitizeAndStoreData({ url, title, content });

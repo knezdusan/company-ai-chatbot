@@ -48,6 +48,29 @@ export function setAbsolutePath(path: string) {
   return `${rootPath}${relativePath}`
 }
 
+// Strip HTML function
+export function stripHtml(html: string): string {
+  // Remove HTML tags
+  let text = html.replace(/<[^>]*>/g, '');
+
+  // Decode HTML entities
+  text = text.replace(/&nbsp;/g, ' ');
+  text = text.replace(/&amp;/g, '&');
+  text = text.replace(/&lt;/g, '<');
+  text = text.replace(/&gt;/g, '>');
+  text = text.replace(/&quot;/g, '"');
+  text = text.replace(/&#39;/g, "'");
+
+  // Remove extra whitespace while preserving line breaks
+  text = text.replace(/[ \t]+/g, ' ');  // Replace multiple spaces or tabs with a single space
+  text = text.replace(/^[ \t]+|[ \t]+$/gm, '');  // Trim start and end of each line
+
+  // Replace multiple line breaks with a single line break
+  text = text.replace(/\n\s*\n/g, '\n');
+
+  return text.trim();  // Trim the entire string
+}
+
 
 // Retry wrapper function
 export async function withRetry<T>(

@@ -98,15 +98,15 @@ export async function scrpPage(url: string, browser?: Browser, page?: Page): Pro
       throw new Error('----> Invalid proxy detected');
     }
 
+    // Check if the page is valid, if it has title, body content, and links
+    if (!pageTitle || pageTitle.trim().length === 0 || !pageBodyContent || pageBodyContent.trim().length === 0) {
+      console.error('-----> Page title, body content, or links are missing');
+      throw new Error('Page title, body content, or links are missing');
+    }
+
     // Extract all links
     const allLinks = await getLinks(page);
     console.log('-----> Found links:', allLinks);
-
-    // Check if the page is valid, if it has title, body content, and links
-    if (!pageTitle || pageTitle.trim().length === 0 || !pageBodyContent || pageBodyContent.trim().length === 0 || !allLinks || allLinks.length === 0) {
-      console.log('-----> Page title, body content, or links are missing, initiating ');
-      throw new Error('Page title, body content, or links are missing');
-    }
 
     // Setup a local server session based on the remote session
     await setupLocalSession(url, page);
