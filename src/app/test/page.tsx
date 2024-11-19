@@ -1,4 +1,4 @@
-import { stripHtml } from "@/lib/utils";
+import { convert } from "html-to-text";
 import * as fs from "fs/promises";
 
 // import content from scrp.txt file
@@ -17,8 +17,9 @@ async function getContent(path: string): Promise<string | null> {
 }
 
 export default async function Test() {
-  const content = await getContent("scrp.txt");
-  const plainText = stripHtml(content || "");
+  const html = await getContent("scrp.txt");
+  // const plainText = stripHtml(content || "");
+  const plainText = convert(html);
 
   console.log("*-*-*-*-*-*-*-*-*--*-> Content:", plainText);
 

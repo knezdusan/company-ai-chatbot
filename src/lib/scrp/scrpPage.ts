@@ -89,7 +89,15 @@ export async function scrpPage(url: string, browser?: Browser, page?: Page): Pro
     // Random wait after page load
     await randomWait(3000, 6000);
 
-    const pageTitle = await page.title();
+    // Get page data: title, description, body content
+    const pageTitle = (await page.title()).trim();
+
+
+    const pageDescription = await page.evaluate(() => {
+      const metaDescription = document.querySelector('meta[name="description"]');
+      return metaDescription?.getAttribute('content');
+    }) as string | undefined;
+
     const pageBodyContent = await page.$eval('body', (body) => body.innerHTML);
 
     // Check if pageBodyContent string contains the string REQUEST_METHOD
@@ -98,10 +106,10 @@ export async function scrpPage(url: string, browser?: Browser, page?: Page): Pro
       throw new Error('----> Invalid proxy detected');
     }
 
-    // Check if the page is valid, if it has title, body content, and links
-    if (!pageTitle || pageTitle.trim().length === 0 || !pageBodyContent || pageBodyContent.trim().length === 0) {
-      console.error('-----> Page title, body content, or links are missing');
-      throw new Error('Page title, body content, or links are missing');
+    // Check if the page is valid - at least it must have a body content
+    if (!pageBodyContent || pageBodyContent.trim().length === 0) {
+      console.error('-----> Page  content are missing');
+      throw new Error('Page content are missing');
     }
 
     // Extract all links
@@ -114,6 +122,7 @@ export async function scrpPage(url: string, browser?: Browser, page?: Page): Pro
     const pageData = {
       url,
       title: pageTitle,
+      description: pageDescription,
       content: pageBodyContent,
       links: allLinks,
     }

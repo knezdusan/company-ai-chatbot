@@ -130,6 +130,9 @@ export async function getNewBrowser(): Promise<TScrpConfig | null> {
         throw new Error('Too Many Requests: Rate limit exceeded');
       } else if (status === 401) {
         throw new Error('Unauthorized: Authentication failed');
+      }
+      else if (status >= 400 && status < 500) {
+        throw new Error(`Client Error (${status}): Bad Request`);
       } else if (status >= 500) {
         throw new Error(`Server Error (${status}): Target site experiencing issues`);
       }

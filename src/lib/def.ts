@@ -90,12 +90,12 @@ export type TScrpConfig = {
 
 export type TScrpPageData = {
   url: string;
-  title: string;
+  title?: string;
   description?: string;
   image?: string;
   content: string;
-  links: string[];
-  proxy?: string;
+  links?: string[];
+  depth?: number;
 }
 
 export type TScrpPageResponse = TScrpConfig & TScrpPageData;

@@ -32,8 +32,12 @@ export async function getLinks(page: Page, options = {
 
     // Get all href links
     document.querySelectorAll('a[href]').forEach(element => {
-      const href = element.getAttribute('href');
+      let href = element.getAttribute('href');
       if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+        // If href contains # hash part, remove it as it is an internal link
+        if (href.includes('#')) {
+          href = href.split('#')[0];
+        }
         urls.push(href);
       }
     });

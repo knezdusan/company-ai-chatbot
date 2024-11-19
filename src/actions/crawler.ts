@@ -10,17 +10,28 @@
 
 "use server";
 
-import { TCrawlQueue, TCrawlResults, TScrpPageResponse } from "@/lib/def";
+import { TCrawlQueue, TCrawlResults, TScrpPageData, TScrpPageResponse } from "@/lib/def";
 import { scrpPage } from "@/lib/scrp/scrpPage";
 import { isValidUrl, withRetry } from "@/lib/utils";
-import { pages } from "next/dist/build/templates/app-page";
-import * as fs from 'fs';
+import { convert } from "html-to-text";
+import { createClient } from "@/supabase/server";
+import { verifyAuthSession } from "@/auth/session";
+// import * as fs from 'fs';
 
 const MAX_CRAWLER_DEPTH = 2;  // How many levels deep should the crawler got going backwards from the root url to zero
 const CONCURRENCY_LIMIT = 5; // How many pages can be processed concurrently at a time (to reduce load on the server)
-const PAGES_LIMIT = 1; // How many pages can be indexed in total
+const PAGES_LIMIT = 10; // How many pages can be indexed in total
 
 export async function crawler(prevState: unknown, formData: FormData) {
+
+  const authSession = await verifyAuthSession();
+  if (!authSession) {
+    console.error("Could not authorize user");
+    return {
+      success: false,
+      message: "Could not authorize user",
+    }
+  }
 
   let pagesScraped = 0;
 
@@ -85,28 +96,29 @@ export async function crawler(prevState: unknown, formData: FormData) {
         throw new Error(`Error scraping the page:  ${url}`);
       }
 
-      // const { page, browser, title, content, links } = scrpPageResult;
-      const { links } = scrpPageResult;
+      const { title, description, content, links } = scrpPageResult;
 
       // Increment the counter when a page is scraped
       pagesScraped++;
 
-      console.log(`------> Successfully scraped ${url}. Found ${links.length} links.`);
+      console.log(`------> Successfully scraped ${url}.`);
 
       // save the scrpPageResult.content to scrp.txt file
-      const { content } = scrpPageResult;
-      fs.writeFileSync('scrp.txt', content);
-
-
-      console.log('scrpPageResult: ', scrpPageResult);
-      return;
+      // fs.writeFileSync('scrp.txt', content);
 
       // Sanitize the content and store it in the database
-      // await sanitizeAndStoreData({ url, title, content });
 
-      crawlResults.push({ url, depth, success: true, links });
+      try {
+        await sanitizeAndStoreData({ url, title, description, content, depth, links });
+      } catch (error) {
+        console.error('------> Error storing data:', error instanceof Error ? error.message : String(error));
+        throw new Error('------> Error storing data:');
+      }
+
+      crawlResults.push({ url, depth, success: true, links: links ?? [] });
 
       // Add links to the queue if they haven't been visited
+      if (!links) return;
       for (const link of links) {
         if (!visitedUrls.has(link)) {
           crawlQueue.push({ url: link, depth: depth - 1 });
@@ -146,8 +158,55 @@ export async function crawler(prevState: unknown, formData: FormData) {
     }
   }
 
-  // async function sanitizeAndStoreData({ url, title, content }: { url: string, title: string, content: string }) {
-  //   const sanitizedContent = sanitizeContent(content);
-  //   await storePageData({ url, title, content: sanitizedContent });
-  // }
+  async function sanitizeAndStoreData({ url, title, description, content, links, depth }: TScrpPageData) {
+
+    // Convert content to plain text using the html-to-text library
+    const sanitizedContent = convert(content);
+
+    // Convert the links array to the csv format
+    const linksCsv = links && links.join(',');
+
+    // create supabase server client
+    const supabaseClient = createClient();
+
+    // Check if the url already exists in the database to determine if we should insert or update
+    try {
+      const { data: paths, error: pathsError } = await supabaseClient
+        .from("sites")
+        .select()
+        // Filters
+        .eq("path", url);
+
+      if (pathsError) {
+        throw new Error(`Error checking for existing paths for url: ${url}: ${pathsError.message}`);
+      }
+
+      if (paths && paths.length > 0) {
+        // Update the existing path
+        const { error: updateError } = await supabaseClient
+          .from("sites")
+          .update({ client_id: authSession?.clientId, path: url, title, description, content: sanitizedContent, links: linksCsv, level: depth })
+          .eq("path", url);
+
+        if (updateError) {
+          throw new Error(`Error updating new data for path for url: ${url}: ${updateError.message}`);
+        }
+      }
+      else {
+        // Insert the new path
+        const { error: insertError } = await supabaseClient
+          .from("sites")
+          .insert({ client_id: authSession?.clientId, path: url, title, description, content: sanitizedContent, links: linksCsv, level: depth });
+
+        if (insertError) {
+          throw new Error(`Error inserting new data for path for url: ${url}: ${insertError.message}`);
+        }
+      }
+
+    }
+    catch (error) {
+      console.error(`-----> Error checking for existing paths for url: ${url}:`, error);
+      throw new Error(`Error checking for existing paths for url: ${url}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
 }
